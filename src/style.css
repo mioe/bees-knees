@@ -4,13 +4,18 @@
 	line-height: 1.5;
 	font-weight: 400;
 	color-scheme: dark;
-	color: #dedede;
-	background-color: #242424;
+	background-color: black;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+}
+
+/* vars */
+:root {
+	--primary: #f6c844;
+	--selected: #b99333;
 }
 
 /* box sizing rules */
@@ -50,16 +55,16 @@ dd {
 /* good default vite styles */
 a {
 	font-weight: 500;
-	color: #646cff;
+	color: var(--primary);
 	text-decoration: inherit;
 }
 a:hover {
-	color: #535bf2;
+	color: var(--selected)
 }
 
 /* set core body defaults */
 body {
-	min-height: 100vh;
+	min-height: 100svh;
 	display: flex;
 	flex-direction: column;
 }
