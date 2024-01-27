@@ -1,9 +1,9 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import routes from '~pages'
 import NotFound from '~/404.vue'
 
 const router = createRouter({
-	history: createWebHashHistory(),
+	history: createWebHistory(),
 	routes: [
 		...routes,
 		{ path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
