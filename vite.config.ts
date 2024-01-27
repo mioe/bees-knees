@@ -17,8 +17,6 @@ export default defineConfig(({ command, mode }) => {
 	console.log('🦕 vite.config.ts/defineConfig', command, mode)
 
 	return {
-		base: mode === 'development' ? './' : '/playground/',
-
 		resolve: {
 			alias: {
 				'~/': `${path.resolve(__dirname, 'src')}/`,
@@ -64,8 +62,8 @@ export default defineConfig(({ command, mode }) => {
 				injectRegister: 'auto',
 				includeAssets: ['favicons/favicon.svg', 'favicons/safari-pinned-tab.svg'],
 				manifest: {
-					name: 'Playground',
-					short_name: 'Playground',
+					name: 'Bee`s Knees',
+					short_name: 'Bee`s Knees',
 					theme_color: '#ffffff',
 					icons: [
 						{
