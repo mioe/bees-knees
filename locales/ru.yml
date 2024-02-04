@@ -1,4 +1,6 @@
 sign-in: 'Войти через гугл'
 new-recipe: 'Добавить новый коктейль'
-name: 'Название'
+name: 'Название{lorem}'
 ingredients: 'Ингредиенты'
+value: 'Значение'
+add-ingredient: 'Добавить ингредиент'
