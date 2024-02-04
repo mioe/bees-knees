@@ -1,13 +1,21 @@
 <script setup lang="ts">
 const authStore = useAuthStore()
+const recipesStore = useRecipesStore()
 const { handleSignInPopup } = authStore
 </script>
 
 <template>
 	<main class="relative flex flex-col min-h-svh">
-		<article class="h-full">
-			hello
-		</article>
+		<div class="grid grid-cols-2 gap-[16px]">
+			<RouterLink
+				v-for="(r, idx) in recipesStore.recipes"
+				:key="idx"
+				class="h-full"
+				:to="{ name: 'id', params: {id: r.id} }"
+			>
+				{{ r.id }}
+			</RouterLink>
+		</div>
 
 		<footer
 			class="sticky bottom-0 left-0 z-1 mt-auto w-full flex shrink-0 items-center justify-center bg-black p-[24px]"
