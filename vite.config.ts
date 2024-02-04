@@ -64,7 +64,7 @@ export default defineConfig(({ command, mode }) => {
 				manifest: {
 					name: 'Bee`s Knees',
 					short_name: 'Bee`s Knees',
-					theme_color: '#ffffff',
+					theme_color: '#000000',
 					icons: [
 						{
 							src: '/favicons/pwa-192x192.png',
