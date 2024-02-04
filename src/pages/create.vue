@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FormForRecipe from '~/components/FormForRecipe.vue'
 const authStore = useAuthStore()
 const recipesStore = useRecipesStore()
 const router = useRouter()
@@ -7,8 +8,11 @@ const { addRecipe } = recipesStore
 
 const formData = reactive({
 	name: '',
-	ingredients: [],
+	ingredients: [
+		{ key: '', val: ''},
+	],
 	description: '',
+	images: [],
 })
 
 function handleAddIngredient() {
@@ -30,6 +34,7 @@ onMounted(() => {
 
 <template>
 	<main class="relative flex flex-col min-h-svh">
+		<FormForRecipe />
 		<form
 			class="flex flex-col gap-[8px] p-[16px]"
 			@submit.prevent="onSubmit"

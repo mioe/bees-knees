@@ -1,10 +1,19 @@
-/* good default vite styles */
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	--document: #000;
+	--secondary: #393a3a;
+	--primary: #f6c844;
+	--selected: #b99333;
+	--typography-common: #f5f5f7;
+	--typography-secondary: #a1a1a6;
+}
+
+:root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 	color-scheme: dark;
-	background-color: black;
+	color: var(--typography-secondary);
+	background-color: var(--document);
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -12,26 +21,17 @@
 	-webkit-text-size-adjust: 100%;
 }
 
-/* vars */
-:root {
-	--primary: #f6c844;
-	--selected: #b99333;
-}
-
-/* box sizing rules */
 *,
 *::before,
 *::after {
 	box-sizing: border-box
 }
 
-/* remove default padding */
 ul,
 ol {
 	padding: 0;
 }
 
-/* remove default margin */
 body,
 h1,
 h2,
@@ -52,36 +52,57 @@ dd {
 	margin: 0;
 }
 
-button {
-	all: unset;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--typography-common);
+	font-weight: 500;
 }
 
-/* good default vite styles */
-a, button {
+a {
 	font-weight: 500;
 	color: var(--primary);
 	text-decoration: inherit;
 	cursor: pointer;
 }
-a:hover, button:hover {
+a:hover {
 	color: var(--selected)
 }
 
-/* set core body defaults */
+input,
+textarea {
+	all: unset;
+	background-color: var(--secondary);
+	border-radius: .6em;
+	padding: .3em .6em;
+	color: var(--typography-common)
+}
+input:focus,
+textarea:focus {
+	box-shadow: 0 0 0 3px var(--selected);
+}
+input::placeholder {
+	color: var(--typography-secondary);
+}
+
+button {
+	all: unset;
+	color: var(--primary);
+	cursor: pointer;
+	display: inline-flex;
+	font-weight: 500;
+}
+
 body {
 	min-height: 100svh;
 	display: flex;
 	flex-direction: column;
 }
 
-/* remove list styles on ul, ol elements with a class attribute */
-ul,
-ol {
-	list-style: none;
-}
-
-/* make images easier to work with */
 img {
 	max-width: 100%;
-	display: block;
+	display: inline-flex;
 }
