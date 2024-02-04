@@ -52,13 +52,18 @@ dd {
 	margin: 0;
 }
 
+button {
+	all: unset;
+}
+
 /* good default vite styles */
-a {
+a, button {
 	font-weight: 500;
 	color: var(--primary);
 	text-decoration: inherit;
+	cursor: pointer;
 }
-a:hover {
+a:hover, button:hover {
 	color: var(--selected)
 }
 

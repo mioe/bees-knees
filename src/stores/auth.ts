@@ -1,10 +1,9 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
 	useCurrentUser,
 	useFirebaseAuth,
 } from 'vuefire'
 import {
-	getRedirectResult,
 	signInWithPopup,
 	signOut,
 	GoogleAuthProvider,
@@ -16,34 +15,32 @@ export const useAuthStore = defineStore('auth', () => {
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const auth = useFirebaseAuth()! // only exists on client side
 	const user = useCurrentUser()
+	const isAdm = computed(() => user?.value?.uid === import.meta.env.VITE_ADM_UUID)
 
 	const error = ref(null)
 
 	async function handleSignInPopup() {
-		await signInWithPopup(auth, googleAuthProvider).catch((reason) => {
-			console.error('🦕 Failed signInWithPopup', reason)
-			error.value = reason
-		})
+		await signInWithPopup(auth, googleAuthProvider)
+			.then((user) => {
+				console.log('🦕 user', user)
+			})
+			.catch((reason) => {
+				console.error('🦕 Failed signInWithPopup', reason)
+				error.value = reason
+			})
 	}
 
 	async function handleSignOut() {
 		await signOut(auth)
 	}
 
-	async function getRedirectCallback() {
-		await getRedirectResult(auth).catch((reason) => {
-			console.error('🦕 Failed getRedirectCallback', reason)
-			error.value = reason
-		})
-	}
-
 	return {
 		currentUser: user,
 		authError: error,
+		isAdm,
 
 		handleSignInPopup,
 		handleSignOut,
-		getRedirectCallback,
 	}
 })
 

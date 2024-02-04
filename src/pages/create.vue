@@ -1,11 +1,21 @@
 <script setup lang="ts">
+const authStore = useAuthStore()
+const router = useRouter()
+
 onMounted(() => {
-	console.log('🦕 msg')
+	if (!authStore.isAdm) {
+		router.push('/')
+	}
 })
 </script>
 
 <template>
-	<div>
-		Create
-	</div>
+	<main>
+		<form @submit.prevent="() => {}">
+			<input
+				type="text"
+				required
+			>
+		</form>
+	</main>
 </template>
