@@ -1,21 +1,28 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', () => {
-	const count = ref(0)
+	const state = reactive({
+		isOpenSidebar: false,
+	})
 
-	function increment() {
-		count.value++
+	function onChangeState(key: string, val: boolean) {
+		// @ts-ignore
+		state[key] = val
 	}
 
-	function decrement() {
-		count.value--
+	function onCloseAllState() {
+		Object.keys(state).forEach((key) => {
+			// @ts-ignore
+			state[key] = false
+		})
 	}
 
 	return {
-		count,
-		increment,
-		decrement,
+		state,
+
+		onChangeState,
+		onCloseAllState,
 	}
 })
 
