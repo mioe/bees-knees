@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import HelloWorld from '~/components/HelloWorld.vue'
+import BubbleButton from '~/components/BubbleButton.vue'
 </script>
 
 <template>
-	<h1>index.vue</h1>
-	<HelloWorld
-		world="world"
-	/>
-	<button>Hello, World!</button>
-	<div class="i-mi:deno h-[48px] w-[48px]" />
-	<div class="i-mi:fastify h-[48px] w-[48px] c-red-600" />
+	<main class="relative min-h-[100svh] flex flex-col">
+		<img
+			class="absolute z-0 w-full object-cover"
+			src="/favicons/pwa-512x512.png"
+			alt=""
+		>
+
+		<article class="h-full">
+			hello
+		</article>
+
+		<footer class="sticky bottom-0 left-0 z-1 mt-auto">
+			<BubbleButton />
+		</footer>
+	</main>
 </template>

@@ -3,8 +3,12 @@ useHead({
 	title: 'Bee`s Knees App',
 })
 
-onMounted(() => {
-	console.log('🦕 secret', import.meta.env.VITE_SECRET)
+const authStore = useAuthStore()
+const { getRedirectCallback } = authStore
+
+onMounted(async() => {
+	await getRedirectCallback()
+	console.log('🦕 secret:', import.meta.env.VITE_SECRET)
 })
 </script>
 
