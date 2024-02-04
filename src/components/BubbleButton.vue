@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RouteLocationRaw } from 'vue-router'
+
 const props = withDefaults(
 	defineProps<{
 		to?: RouteLocationRaw
