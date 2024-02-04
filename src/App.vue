@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-	title: 'My awesome site',
+	title: 'Bee`s Knees App',
 })
 </script>
 
