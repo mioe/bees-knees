@@ -1,16 +1,34 @@
 <script setup lang="ts">
-withDefaults(
+import { RouteLocationRaw } from 'vue-router'
+
+const props = withDefaults(
 	defineProps<{
-		tag?: string
+		to?: RouteLocationRaw
+		href?: string
+		disabled?: boolean | undefined
 	}>(),
 	{
-		tag: 'a',
+		href: '#',
+		disabled: undefined,
 	},
+)
+
+const tag = computed(() =>
+	props.to
+		? 'RouterLink'
+		: props.href
+			? 'a'
+			: 'button',
 )
 </script>
 
 <template>
-	<Component :is="tag">
+	<Component
+		:is="tag"
+		:to
+		:href
+		:disabled
+	>
 		hello
 	</Component>
 </template>

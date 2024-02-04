@@ -14,7 +14,7 @@ import BubbleButton from '~/components/BubbleButton.vue'
 			hello
 		</article>
 
-		<footer class="sticky bottom-0 left-0 z-1 mt-auto">
+		<footer class="sticky bottom-0 left-0 z-1 mt-auto w-full shrink-0">
 			<BubbleButton />
 		</footer>
 	</main>
