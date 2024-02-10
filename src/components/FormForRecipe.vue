@@ -103,6 +103,7 @@ async function onSubmit() {
 					<img
 						:src="formData.image"
 						alt=""
+						class="max-h-[200px] max-w-[320px]"
 					>
 					<button @click.prevent="handleUploadPhoto">
 						{{ $t('change-image') }}
