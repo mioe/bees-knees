@@ -6,14 +6,14 @@ const { handleSignInPopup } = authStore
 
 <template>
 	<main class="relative flex flex-col min-h-svh">
-		<div class="grid grid-cols-2 gap-[16px]">
+		<div class="flex flex-wrap gap-[16px] px-$safe-x py-$safe-y">
 			<RouterLink
 				v-for="(r, idx) in recipesStore.recipes"
 				:key="idx"
-				class="h-full"
+				class="h-full min-w-[220px] flex flex-1"
 				:to="{ name: 'id', params: {id: r.id} }"
 			>
-				{{ r.id }}
+				{{ r.name }}
 			</RouterLink>
 		</div>
 

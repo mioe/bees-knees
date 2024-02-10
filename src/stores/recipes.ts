@@ -1,5 +1,5 @@
-import { useCollection, useFirestore } from 'vuefire'
-import { addDoc, collection } from 'firebase/firestore'
+import { useCollection, useFirestore, useDocument } from 'vuefire'
+import { addDoc, collection, doc } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useRecipesStore = defineStore('recipes', () => {
@@ -10,10 +10,18 @@ export const useRecipesStore = defineStore('recipes', () => {
 		await addDoc(collection(db, 'recipes'), body)
 	}
 
+	function findRecipeById(id: string) {
+		const recipe = useDocument(doc(collection(db, 'recipes'), id), {
+			once: true,
+		})
+		return recipe
+	}
+
 	return {
 		recipes,
 
 		addRecipe,
+		findRecipeById,
 	}
 })
 

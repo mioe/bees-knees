@@ -44,6 +44,7 @@ async function onSubmit() {
 		<div class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y">
 			<input
 				id="slug"
+				v-model="formData.name"
 				type="text"
 				required
 				autocomplete="off"
@@ -92,6 +93,7 @@ async function onSubmit() {
 			</div>
 			<textarea
 				id="description"
+				v-model="formData.description"
 				:placeholder="$t('description')"
 				rows="10"
 			/>
