@@ -1,12 +1,48 @@
 <script setup lang="ts">
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { useFirebaseStorage  } from 'vuefire'
+
+import Loader from '~/components/Loader.vue'
+import Cropper from '~/components/Cropper.vue'
+const inputFileRef = shallowRef<HTMLInputElement | undefined>()
+const cropperRef = shallowRef<InstanceType<typeof Cropper> | undefined>()
+const authStore = useAuthStore()
+const currentUser = computed(() => authStore.currentUser)
+
+const storage = useFirebaseStorage()
+const reference = storageRef(storage, `recipes/${Date.now()}-${currentUser.value?.uid}.png`)
+
+const loading = ref(false)
+
 const formData = reactive({
 	name: '',
 	ingredients: [
 		{ key: '', val: ''},
 	],
 	description: '',
-	images: [],
+	image: '',
 })
+
+function handleUploadPhoto() {
+	inputFileRef.value?.click()
+}
+
+async function onFileChange(ev: any) {
+	const { target: { files } } = ev
+	const file = files[0]
+	try {
+		const cropFile = await cropperRef.value?.open({ file }) as File
+		loading.value = true
+		uploadBytes(reference, cropFile)
+			.then(snapshot => getDownloadURL(snapshot.ref))
+			.then(downloadURL => {
+				loading.value = false
+				formData.image = downloadURL
+			})
+	} catch (err) {
+		console.error(err)
+	}
+}
 
 function handleAddIngredient() {
 	formData.ingredients.push({ key: '', val: '' })
@@ -30,6 +66,7 @@ async function onSubmit() {
 		class="relative flex flex-col"
 		@submit.prevent="onSubmit"
 	>
+		<Loader :is-loading="loading" />
 		<header class="sticky left-0 top-0 z-1 w-full flex items-center justify-between bg-$document px-$safe-x py-$safe-y">
 			<RouterLink
 				:to="{ name: 'index' }"
@@ -42,6 +79,28 @@ async function onSubmit() {
 			</button>
 		</header>
 		<div class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y">
+			<div v-if="!formData.image">
+				<input
+					ref="inputFileRef"
+					type="file"
+					:multiple="false"
+					class="hidden"
+					@change="onFileChange"
+				>
+
+				<button @click.prevent="handleUploadPhoto">
+					<span>image</span>
+				</button>
+
+				<Cropper ref="cropperRef" />
+			</div>
+			<div v-else>
+				<img
+					:src="formData.image"
+					alt=""
+				>
+			</div>
+
 			<input
 				id="slug"
 				v-model="formData.name"

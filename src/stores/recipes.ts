@@ -1,13 +1,18 @@
 import { useCollection, useFirestore, useDocument } from 'vuefire'
-import { addDoc, collection, doc } from 'firebase/firestore'
+import { addDoc, collection, doc, Timestamp } from 'firebase/firestore'
 import { acceptHMRUpdate, defineStore } from 'pinia'
+
 
 export const useRecipesStore = defineStore('recipes', () => {
 	const db = useFirestore()
 	const recipes = useCollection(collection(db, 'recipes'))
 
 	async function addRecipe(body: any) {
-		await addDoc(collection(db, 'recipes'), body)
+		await addDoc(collection(db, 'recipes'), {
+			...body,
+			createdAt: Timestamp.fromDate(new Date(Date.now())),
+			updatedAt: Timestamp.fromDate(new Date(Date.now())),
+		})
 	}
 
 	function findRecipeById(id: string) {
