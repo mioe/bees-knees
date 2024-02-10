@@ -12,7 +12,7 @@ export default defineConfig({
 			scale: 1.2,
 			warn: true,
 			collections: {
-				'mi': FileSystemIconLoader(
+				mi: FileSystemIconLoader(
 					'./src/assets/icons',
 				),
 			},
