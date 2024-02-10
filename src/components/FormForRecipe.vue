@@ -16,68 +16,90 @@ function handleRemoveIngredient(idx: number) {
 	formData.ingredients.splice(idx, 1)
 }
 
+const emit = defineEmits<{
+	submit: [formData: any]
+}>()
+
 async function onSubmit() {
-	console.log('🦕 s')
+	emit('submit', formData)
 }
 </script>
 
 <template>
 	<form
-		class="w-full flex flex-col gap-$safe-y"
+		class="relative flex flex-col"
 		@submit.prevent="onSubmit"
 	>
-		<input
-			id="slug"
-			type="text"
-			required
-			autocomplete="off"
-			:placeholder="$t('name', { lorem: ' коктейля' })"
-		>
-		<fieldset class="form-for-recipe--fieldset">
-			<legend class="mb-$y">
-				{{ $t('ingredients') }}:
-			</legend>
-			<div>
-				<div
-					v-for="(i, idx) in formData.ingredients"
-					:key="idx"
-					class="form-for-recipe--fieldset--row"
-				>
-					<input
-						:id="`${idx}-${i.key}`"
-						v-model="i.key"
-						type="text"
-						autocomplete="off"
-						:placeholder="$t('name')"
-					>
-					<input
-						:id="`${idx}-${i.val}`"
-						v-model="i.val"
-						type="text"
-						autocomplete="off"
-						:placeholder="$t('value')"
-					>
+		<header class="sticky left-0 top-0 z-1 w-full flex items-center justify-between bg-$document px-$safe-x py-$safe-y">
+			<RouterLink
+				:to="{ name: 'index' }"
+			>
+				{{ $t('back') }}
+			</RouterLink>
 
-					<div class="flex items-center justify-end">
-						<button
-							@click.prevent="handleRemoveIngredient(idx)"
+			<button type="submit">
+				{{ $t('done') }}
+			</button>
+		</header>
+		<div class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y">
+			<input
+				id="slug"
+				type="text"
+				required
+				autocomplete="off"
+				:placeholder="$t('name-recipe')"
+			>
+			<div class="form-for-recipe--fieldset">
+				<p class="mb-$y">
+					{{ $t('ingredients') }}:
+				</p>
+				<div>
+					<div
+						v-for="(i, idx) in formData.ingredients"
+						:key="idx"
+						class="form-for-recipe--fieldset--row"
+					>
+						<input
+							:id="`${idx}-${i.key}`"
+							v-model="i.key"
+							type="text"
+							autocomplete="off"
+							:placeholder="$t('name-ingredient')"
 						>
-							<div class="i-mi:trash h-[20px] w-[20px]" />
-						</button>
+						<input
+							:id="`${idx}-${i.val}`"
+							v-model="i.val"
+							type="text"
+							autocomplete="off"
+							:placeholder="$t('value')"
+						>
+
+						<div class="flex items-center justify-end">
+							<button
+								@click.prevent="handleRemoveIngredient(idx)"
+							>
+								<div class="i-mi:trash h-[20px] w-[20px]" />
+							</button>
+						</div>
 					</div>
 				</div>
+				<button
+					class="mt-$y"
+					@click.prevent="handleAddIngredient"
+				>
+					+ {{ $t('add-ingredient') }}
+				</button>
 			</div>
-			<button
-				class="mt-$y"
-				@click.prevent="handleAddIngredient"
-			>
-				+ {{ $t('add-ingredient') }}
-			</button>
-		</fieldset>
+			<textarea
+				id="description"
+				:placeholder="$t('description')"
+				rows="10"
+			/>
+		</div>
 	</form>
 </template>
 
-<style>
+<style scoped>
 .form-for-recipe--fieldset {
 	all: unset;
 	box-sizing: border-box;
