@@ -21,6 +21,8 @@ function reset() {
 }
 
 function open({ file }: { file: File }) {
+	reset()
+
 	const promise = new Promise((resolve, reject) => {
 		resolveCallback.value = resolve
 		rejectCallback.value = reject

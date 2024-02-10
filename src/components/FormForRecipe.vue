@@ -79,7 +79,7 @@ async function onSubmit() {
 			</button>
 		</header>
 		<div class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y">
-			<div v-if="!formData.image">
+			<div>
 				<input
 					ref="inputFileRef"
 					type="file"
@@ -87,18 +87,27 @@ async function onSubmit() {
 					class="hidden"
 					@change="onFileChange"
 				>
+				<Cropper ref="cropperRef" />
 
-				<button @click.prevent="handleUploadPhoto">
-					<span>image</span>
+				<button
+					v-if="!formData.image"
+					@click.prevent="handleUploadPhoto"
+				>
+					{{ $t('upload-image') }}
 				</button>
 
-				<Cropper ref="cropperRef" />
-			</div>
-			<div v-else>
-				<img
-					:src="formData.image"
-					alt=""
+				<div
+					v-else
+					class="flex flex-col gap-$y"
 				>
+					<img
+						:src="formData.image"
+						alt=""
+					>
+					<button @click.prevent="handleUploadPhoto">
+						{{ $t('change-image') }}
+					</button>
+				</div>
 			</div>
 
 			<input
