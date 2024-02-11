@@ -1,10 +1,24 @@
 <script setup lang="ts">
-const authStore = useAuthStore()
+import { doc } from 'firebase/firestore'
+
+// const authStore = useAuthStore()
 const recipesStore = useRecipesStore()
-const { findRecipeById } = recipesStore
+const { recipesRef, findRecipeById } = recipesStore
 const route = useRoute()
 
-const recipe = findRecipeById(route.params.id as string) as any
+const recipeSource = computed(() =>
+	doc(recipesRef, route.params.id as string),
+)
+const {
+	recipe,
+	pending,
+} = findRecipeById(recipeSource)
+
+watch(pending, (val) => {
+	if (!val && !recipe.value) {
+		console.log('🦕 NOT FOUND')
+	}
+})
 </script>
 
 <template>
@@ -24,7 +38,10 @@ const recipe = findRecipeById(route.params.id as string) as any
 				<p>{{ $t('edit') }}</p>
 			</RouterLink> -->
 		</header>
-		<div class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y">
+		<div
+			v-if="!pending && !!recipe"
+			class="w-full flex flex-col gap-$safe-y px-$safe-x py-$safe-y"
+		>
 			<header
 				v-if="recipe.image"
 				class="relative w-full w-full flex"
