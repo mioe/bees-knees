@@ -8,7 +8,7 @@ const router = createRouter({
 		...routes,
 		{ path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 	],
-	scrollBehavior(to, from, savedPosition) {
+	scrollBehavior(_to, _from, savedPosition) {
 		if (savedPosition) {
 			return savedPosition
 		} else {

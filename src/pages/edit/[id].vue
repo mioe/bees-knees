@@ -7,12 +7,14 @@ const { findRecipeById } = recipesStore
 const router = useRouter()
 const route = useRoute()
 
+// @ts-ignore
 const recipe = findRecipeById(route.params.id as string) as any
 
 // const { addRecipe } = recipesStore
 
 const loading = ref(false)
 
+// @ts-ignore
 function onSubmit(formData: any) {
 	loading.value = true
 	// addRecipe(formData)

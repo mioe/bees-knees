@@ -22,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+            echo ${{ secrets.FIREBASE_PROJECT_DEFAULT }}
             npm install -g pnpm
             pnpm install
             pnpm build
