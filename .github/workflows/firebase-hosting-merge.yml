@@ -22,7 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-            echo ${{ secrets.FIREBASE_PROJECT_DEFAULT }}
+            echo ${{ secrets.FIREBASE_PROJECT_DEFAULT }} > mi.tt
+            cat mi.tt
             npm install -g pnpm
             pnpm install
             pnpm build
